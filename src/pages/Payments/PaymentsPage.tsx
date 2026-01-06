@@ -1,5 +1,11 @@
-import { Container } from "@/components/styles";
+import { Container, Title } from '@/components/styles';
+import { useTranslation } from 'react-i18next';
 
 export const PaymentsPage = () => {
-  return <Container>Start here</Container>;
+  const { t } = useTranslation();
+  return (
+    <Container>
+      <Title>{t('PAGE_TITLE')}</Title>
+    </Container>
+  );
 };
