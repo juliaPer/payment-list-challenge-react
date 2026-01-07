@@ -1,4 +1,5 @@
 import {
+  ClearButton,
   Container,
   FlexRow,
   SearchButton,
@@ -35,8 +36,13 @@ export const PaymentsPage = () => {
           aria-label={t('SEARCH_LABEL')}
         />
         <SearchButton type='submit' onClick={() => setSearch(search)}>
-          Search
+          {t('SEARCH_BUTTON')}
         </SearchButton>
+        {search && (
+          <ClearButton onClick={() => setSearch('')}>
+            {t('CLEAR_FILTERS')}
+          </ClearButton>
+        )}
       </FlexRow>
       {isLoading && <div>Loading...</div>}
       {error && <div>Error loading data</div>}
