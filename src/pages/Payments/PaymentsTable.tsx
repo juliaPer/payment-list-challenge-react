@@ -18,7 +18,6 @@ import {
   TableRow,
 } from '@/components/styles';
 import { useDataTable } from '@/hooks/useDataTable';
-import { I18N } from '../../constants/i18n';
 import { useTranslation } from 'react-i18next';
 import { Payment } from '@/types/TData';
 
@@ -37,25 +36,25 @@ export const PaymentsTable = () => {
           cell: (info: CellContext<unknown, never>) => info.getValue(),
         }),
         columnHelper.accessor('date', {
-          header: I18N.TABLE_HEADER_DATE,
+          header: t('TABLE_HEADER_DATE'),
           cell: (info: CellContext<unknown, never>) =>
             new Date(info.getValue()).toLocaleString(),
         }),
         columnHelper.accessor('amount', {
-          header: I18N.TABLE_HEADER_AMOUNT,
+          header: t('TABLE_HEADER_AMOUNT'),
           cell: (info: CellContext<unknown, never>) =>
             Number.parseFloat(info.getValue()).toFixed(2),
         }),
         columnHelper.accessor('customerName', {
-          header: I18N.TABLE_HEADER_CUSTOMER,
+          header: t('TABLE_HEADER_CUSTOMER'),
           cell: (info: CellContext<unknown, never>) => info.getValue(),
         }),
         columnHelper.accessor('currency', {
-          header: I18N.TABLE_HEADER_CURRENCY,
+          header: t('TABLE_HEADER_CURRENCY'),
           cell: (info: CellContext<unknown, never>) => info.getValue(),
         }),
         columnHelper.accessor('status', {
-          header: I18N.TABLE_HEADER_STATUS,
+          header: t('TABLE_HEADER_STATUS'),
           cell: (info: CellContext<unknown, never>) => (
             <StatusBadge status={info.getValue()}>
               {info.getValue()}
