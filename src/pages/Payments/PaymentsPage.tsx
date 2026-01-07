@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { PaymentsTable } from './PaymentsTable';
 import { useDataTable } from '@/hooks/useDataTable';
 import { useState } from 'react';
+import { Error } from '@/components/Error';
 
 export const PaymentsPage = () => {
   const { t } = useTranslation();
@@ -46,7 +47,8 @@ export const PaymentsPage = () => {
       </FlexRow>
       {isLoading && <div>Loading...</div>}
       {error && <div>Error loading data</div>}
-      {data && <PaymentsTable data={data.payments} />}
+      {!!data && !!data.message && <Error message={data.message} />}
+      {!!data && <PaymentsTable data={data.payments} />}
     </Container>
   );
 };
