@@ -5,14 +5,15 @@ interface UseDataTableProps {
   page?: number;
   pageCount?: number;
   search?: string;
+  currency?: string;
 }
 
 export function useDataTable(props: UseDataTableProps) {
-  const { page = 1, pageCount = 5, search } = props;
+  const { page = 1, pageCount = 5, search, currency } = props;
 
-  const query = `?${search && `search=${search}`}&page=${page}&${
-    !search && `pageSize=${pageCount}`
-  }`;
+  const query = `?${search && `search=${search}`}&${
+    currency && `currency=${currency}`
+  }&page=${page}&${!search && `pageSize=${pageCount}`}`;
 
   const response = useQuery({
     placeholderData: keepPreviousData,
