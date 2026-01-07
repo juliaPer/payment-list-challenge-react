@@ -1,18 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { API_URL } from '@/constants';
 
 interface UseDataTableProps {
-  page: number;
-  pageCount: number;
+  page?: number;
+  pageCount?: number;
+  search?: string;
 }
 
 export function useDataTable(props: UseDataTableProps) {
-  const { page = 1, pageCount = -1 } = props;
+  const { page = 1, pageCount = 5, search } = props;
 
-  const query = `?page=${page}&pageSize=${pageCount}`;
+  const query = `?${search && `search=${search}`}&page=${page}&${
+    !search && `pageSize=${pageCount}`
+  }`;
 
-  return useQuery({
-    queryKey: ['payments'],
+  const response = useQuery({
+    placeholderData: keepPreviousData,
+    queryKey: ['payments', query],
     queryFn: () => fetch(`${API_URL}${query}`).then((res) => res.json()),
   });
+
+  return { response };
 }

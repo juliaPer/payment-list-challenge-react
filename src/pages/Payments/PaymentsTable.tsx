@@ -8,7 +8,7 @@ import {
   ColumnDef,
 } from '@tanstack/react-table';
 import {
-  Container,
+  FlexRow,
   StatusBadge,
   Table,
   TableBodyWrapper,
@@ -17,14 +17,15 @@ import {
   TableHeaderWrapper,
   TableRow,
 } from '@/components/styles';
-import { useDataTable } from '@/hooks/useDataTable';
 import { useTranslation } from 'react-i18next';
 import { Payment } from '@/types/TData';
 
-export const PaymentsTable = () => {
-  const { t } = useTranslation();
+interface PaymentsTableProps {
+  data: Payment[];
+}
 
-  const { isPending, error, data } = useDataTable({ page: 1, pageCount: 5 });
+export const PaymentsTable = ({ data }: PaymentsTableProps) => {
+  const { t } = useTranslation();
 
   const columnHelper = createColumnHelper();
 
@@ -65,20 +66,16 @@ export const PaymentsTable = () => {
     [columnHelper]
   );
 
-  const paymentData = useMemo(() => data ?? [], [data]);
-
   // TanStack Table configuration
   const table = useReactTable({
-    data: paymentData.payments,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   // Render the table UI
   return (
-    <Container>
-      {isPending && <div>Loading...</div>}
-      {error && <div>Error loading data</div>}
+    <FlexRow>
       {data && (
         <Table>
           <TableHeaderWrapper>
@@ -108,6 +105,6 @@ export const PaymentsTable = () => {
           </TableBodyWrapper>
         </Table>
       )}
-    </Container>
+    </FlexRow>
   );
 };
